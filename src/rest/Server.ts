@@ -66,18 +66,13 @@ export default class Server {
                         return next();
                     });
 
-                // This is an example endpoint that you can invoke by accessing this URL in your browser:
-                // http://localhost:4321/echo/hello
+
                 that.rest.get("/echo/:msg", Server.echo);
 
                 that.rest.put("/dataset/:id/:kind", Server.putter);
                 that.rest.del("/dataset/:id", Server.deleter);
                 that.rest.post("/query", Server.poster);
                 that.rest.get("/datasets", Server.getter);
-
-                // NOTE: your endpoints should go here
-
-                // This must be the last endpoint!
                 that.rest.get("/.*", Server.getStatic);
 
                 that.rest.listen(that.port, function () {
@@ -86,8 +81,6 @@ export default class Server {
                 });
 
                 that.rest.on("error", function (err: string) {
-                    // catches errors in restify start; unusual syntax due to internal
-                    // node not using normal exceptions here
                     Log.info("Server::start() - restify ERROR: " + err);
                     reject(err);
                 });
